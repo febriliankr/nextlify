@@ -1,9 +1,9 @@
 export default (req, res) => {
-  if (req.method === "POST") {
+    console.log("req.body", req.body);
+    if (req.method === "POST") {
     // Process a POST request
     const mailRecipient = JSON.parse(req.body).recipient;
     console.log("mailRecipient", mailRecipient);
-
     const transporter = nodemailer.createTransport({
       host: "smtp.ethereal.email",
       port: 587,
