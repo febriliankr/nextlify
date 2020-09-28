@@ -1,10 +1,15 @@
-export default (req, res) => {
-    console.log("req.body", req.body);
-    if (req.method === "POST") {
+const nodemailer = require("nodemailer");
+
+export default async (req, res) => {
+  console.log("req.body", req.body);
+  if (req.method === "POST") {
     // Process a POST request
-    const mailRecipient = JSON.parse(req.body).recipient;
-    console.log("mailRecipient", mailRecipient);
-    const transporter = nodemailer.createTransport({
+    const mailRecipient = req.body;
+    const { email } = req.body;
+
+    console.log("email", email);
+
+    let transporter = nodemailer.createTransport({
       host: "smtp.ethereal.email",
       port: 587,
       secure: false,
@@ -15,27 +20,23 @@ export default (req, res) => {
     });
 
     const message = {
-      from: '"Serverless Nodemailing v2" <febrilian.kr@gmail.com>', // sender address
-      to: `${mailRecipient}`, // list of receivers
+      from: '"Serverless Nodemailing" <febrilian.kr@gmail.com>', // sender address
+      to: `${email}`, // list of receivers
       subject: "Serverless is ON, Baby", // Subject line
       text: "Hello, long time no see.", // plain text body
       html: "<b>Hello, long time no see.</b>", // html body
     };
 
-    transporter.sendMail(message, function (error, info) {
-      if (error) {
-        callback(null, {
-          statusCode: 500,
-          body: "failed",
-        });
-      } else {
-        callback(null, {
-          statusCode: 200,
-          body: "success",
-        });
-      }
-    });
-  } else {
-    // Handle any other HTTP method
+    // send mail with defined transport object
+    const info = await transporter.sendMail(message);
+
+    console.log("Message sent: %s", info.messageId);
+    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+    // Preview only available when sending through an Ethereal account
+    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+
+    res.send(`Email sent!`);
   }
 };
