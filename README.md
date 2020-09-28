@@ -9,6 +9,11 @@ npm run build
 netlify dev
 ```
 
+or start without the netlify server, with hot refresh
+```
+yarn dev
+```
+
 ## Notes
 
 POST REQUEST to
