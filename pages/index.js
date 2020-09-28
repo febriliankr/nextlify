@@ -1,8 +1,20 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Form from "./form";
+import axios from 'axios';
+import ExampleHookForm from "./examplehookform";
+
 
 export default function Home() {
+
+
+  const handleClick = e => {
+    axios.get(`/api/hello`)
+    .then(res => {
+      console.log('res', res)
+    })
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -16,10 +28,11 @@ export default function Home() {
           <a href="https://nextjsmailer.netlify.app/">Nodemailer</a>
         </h1>
         <p className={styles.description}>
-          With <code className={styles.code}>Next.js</code>, <code className={styles.code}>Nodemailer</code> and <code className={styles.code}>Netlify Lambda Functions</code>
+          With <code onClick={handleClick} className={styles.code}>Next.js</code>, <code className={styles.code}>Nodemailer</code> and <code className={styles.code}>Netlify Lambda Functions</code>
         </p>
 
         <Form/>
+        <ExampleHookForm/>
       </main>
 
       <p className={styles.description}>

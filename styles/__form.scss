@@ -3,7 +3,9 @@ $font-face: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
   Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 
 .signup__form {
+  
   form {
+    
     display: flex;
     flex-direction: column;
   }
@@ -42,8 +44,8 @@ $font-face: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
     -moz-transition: all 0.3s;
     transition: all 0.3s;
 
-    &:hover{
-        background: black;
+    &:hover {
+      background: black;
     }
   }
 }
